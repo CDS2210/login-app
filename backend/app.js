@@ -16,8 +16,19 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
 };
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Preflight support
+const cors = require('cors');
+
+// ✅ Apply CORS specifically to all routes with options
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://lively-dune-0a1933f1e.6.azurestaticapps.net");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200); // ✅ respond to preflight
+  }
+  next();
+});
 
 // ✅ Middlewares
 app.use(logger('dev'));
