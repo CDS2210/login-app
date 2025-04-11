@@ -8,6 +8,13 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+const cors = require('cors');
+
+// Allow requests from your frontend
+app.use(cors({
+  origin: 'https://lively-dune-0a1933f1e.6.azurestaticapps.net',
+}));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
