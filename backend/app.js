@@ -10,14 +10,18 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // ✅ CORS setup FIRST
+const cors = require('cors');
+
 const corsOptions = {
   origin: 'https://lively-dune-0a1933f1e.6.azurestaticapps.net',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-  optionsSuccessStatus: 200 // 👈 Prevents issues with legacy clients
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
+
 
 // ✅ Explicitly handle OPTIONS preflight for all routes
 app.options('*', cors(corsOptions));
