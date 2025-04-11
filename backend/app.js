@@ -7,10 +7,9 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-// Setup express app
 var app = express();
 
-// ✅ 1. CORS config (do this BEFORE anything else)
+// ✅ 1. CORS configuration object
 const corsOptions = {
   origin: 'https://lively-dune-0a1933f1e.6.azurestaticapps.net',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -18,35 +17,39 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200
 };
-app.options('*', cors(corsOptions)); 
+
+// ✅ 2. Handle preflight requests **first**
+app.options('*', cors(corsOptions));
+
+// ✅ 3. Then apply CORS middleware globally
 app.use(cors(corsOptions));
 
-
-// ✅ 2. Logger and body parsing
+// ✅ 4. Standard middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// ✅ 3. Static files (optional)
+// Optional static
 // app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ 4. Add a debug logger (optional, for troubleshooting)
+// ✅ 5. Debug logger (optional)
 app.use((req, res, next) => {
   console.log(`[${req.method}] ${req.path}`);
   next();
 });
 
-// ✅ 5. Define routes
+// ✅ 6. Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// ✅ 6. Error handling (optional)
+// ✅ 7. Catch-all error handler
 app.use((err, req, res, next) => {
-  console.error('Unhandled Error:', err.stack);
+  console.error('Unhandled error:', err.stack);
   res.status(500).json({ message: 'Server error' });
 });
 
 module.exports = app;
+
 
 
