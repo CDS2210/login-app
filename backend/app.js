@@ -19,6 +19,8 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // ✅ Add this after app.use(cors(...))
+
 
 // ✅ 2. Logger and body parsing
 app.use(logger('dev'));
