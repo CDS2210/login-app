@@ -16,7 +16,6 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
 };
-const cors = require('cors');
 
 // ✅ Apply CORS specifically to all routes with options
 app.use((req, res, next) => {
