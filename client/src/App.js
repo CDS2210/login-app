@@ -14,6 +14,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // This is key for future auth sessions
       body: JSON.stringify({ email, password }),
     });
 
