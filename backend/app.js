@@ -13,7 +13,7 @@ const corsOptions = {
   origin: 'https://lively-dune-0a1933f1e.6.azurestaticapps.net',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
-  credentials: false,
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
