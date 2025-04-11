@@ -13,6 +13,8 @@ const cors = require('cors');
 // Allow requests from your frontend
 app.use(cors({
   origin: 'https://lively-dune-0a1933f1e.6.azurestaticapps.net',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
 }));
 
 app.use(logger('dev'));
