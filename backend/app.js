@@ -18,8 +18,8 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200
 };
+app.options('*', cors(corsOptions)); 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // ✅ Add this after app.use(cors(...))
 
 
 // ✅ 2. Logger and body parsing
