@@ -18,14 +18,3 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 module.exports = app;
-
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-
-  // Mock login validation
-  if (email === 'student@example.com' && password === '123456') {
-    res.json({ success: true, message: 'Login successful!' });
-  } else {
-    res.status(401).json({ success: false, message: 'Invalid credentials' });
-  }
-});
