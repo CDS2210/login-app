@@ -8,17 +8,13 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 
-// ✅ Configure CORS properly
+// ✅ Configure CORS correctly
 const corsOptions = {
   origin: 'https://lively-dune-0a1933f1e.6.azurestaticapps.net',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
   credentials: true,
-  optionsSuccessStatus: 200,
 };
-
 app.use(cors(corsOptions));
-
+app.options('*', cors(corsOptions)); // preflight support
 
 // ✅ Middlewares
 app.use(logger('dev'));
@@ -37,6 +33,7 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
 
 
 
