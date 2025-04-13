@@ -1,15 +1,21 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+/* GET home page (health check) */
+router.get('/', (req, res) => {
   res.json({ message: 'API is running' });
 });
 
+/* Allow preflight OPTIONS for /login */
+router.options('/login', (req, res) => {
+  res.sendStatus(200);
+});
+
 /* POST /login */
-router.post('/login', function(req, res, next) {
+router.post('/login', (req, res) => {
   const { email, password } = req.body;
 
+  // Simple hardcoded auth for demo
   if (email === 'student@example.com' && password === '123456') {
     res.json({ success: true, message: 'Login successful!' });
   } else {
@@ -18,4 +24,5 @@ router.post('/login', function(req, res, next) {
 });
 
 module.exports = router;
+
 
