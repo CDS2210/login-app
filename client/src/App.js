@@ -9,7 +9,7 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('https://login-app-backend.azurewebsites.net/login', {
+    const res = await fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
