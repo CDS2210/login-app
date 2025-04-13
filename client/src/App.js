@@ -9,22 +9,27 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    try {
+      const res = await fetch('https://login-app-backend.azurewebsites.net/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
 
-  const res = await fetch('https://login-app-backend.azurewebsites.net/login', {
-   method: 'POST',
-   headers: {
-    'Content-Type': 'application/json',
-   },
-   credentials: 'include',
-   body: JSON.stringify({ email, password }),
-  });
+      // ✅ Only parse JSON if response has content and correct header
+      const isJson = res.headers.get('content-type')?.includes('application/json');
+      const data = isJson ? await res.json() : {};
 
-
-    const data = await res.json();
-    if (res.ok) {
-      setMessage(data.message);
-    } else {
-      setMessage('Login failed: ' + data.message);
+      if (res.ok) {
+        setMessage(data.message || 'Login successful');
+      } else {
+        setMessage('Login failed: ' + (data.message || res.statusText));
+      }
+    } catch (error) {
+      setMessage('An error occurred: ' + error.message);
     }
   };
 
@@ -64,4 +69,5 @@ function App() {
 }
 
 export default App;
+
 
