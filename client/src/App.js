@@ -9,14 +9,16 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include', // This is key for future auth sessions
-      body: JSON.stringify({ email, password }),
-    });
+
+  const res = await fetch('https://login-app-backend.azurewebsites.net/login', {
+   method: 'POST',
+   headers: {
+    'Content-Type': 'application/json',
+   },
+   credentials: 'include',
+   body: JSON.stringify({ email, password }),
+  });
+
 
     const data = await res.json();
     if (res.ok) {
